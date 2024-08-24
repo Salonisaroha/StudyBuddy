@@ -10,5 +10,15 @@
         <input type="password" name="password" placeholder="Enter Password"/>
         <input type="submit" value="Login"/>
     </form>
+
+</div>
+
+<div>
+    <form method="POST" action="">
+        {% csrf_token %}
+        
+        <input type="submit" value="Register"/>
+    </form>
+
 </div>
 {% endblock content %}
