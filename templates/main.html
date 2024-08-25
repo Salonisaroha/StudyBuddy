@@ -7,19 +7,19 @@
     <body>
         {% include 'navbar.html' %}
 
-{% if messages %}
-    <ul class="messages">
-        {% for message in messages %}
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
             <li>
                 {{ message }}
             </li>
         {% endfor %}
     </ul>
-{% endif %}
+        {% endif %}
 
-     {% block content%}
+        {% block content%}
 
-     {% endblock content %}
+        {% endblock %}
 
 
     </body>
