@@ -67,19 +67,24 @@ def registerPage(request):
 
 def home(request):
     q = request.GET.get('q') if request.GET.get('q') is not None else ''
+    
     rooms = Room.objects.filter(
         Q(topic__name__icontains=q) |
         Q(name__icontains=q) |
-        Q(description__icontains=q)
+        Q(description__icontains=q)  # Correct syntax here
     )
     topics = Topic.objects.all()
     room_count = rooms.count()
-    context = {'rooms': rooms, 'topics': topics, 'room_count': room_count}
+
+    # Fetch recent room messages in descending order of creation time
+    room_messages = Message.objects.filter(room__in=rooms).order_by('-created')[:5]  # Limit to 5 most recent messages
+
+    context = {'rooms': rooms, 'topics': topics, 'room_count': room_count, 'room_messages': room_messages}
     return render(request, 'base/home.html', context)
 
 def room(request, pk):
     room = Room.objects.get(id=pk)
-    room_messages = room.message_set.all().order_by('-created')
+    room_messages = room.message_set.all()
     participants = room.participants.all()
 
     if request.method == "POST":
