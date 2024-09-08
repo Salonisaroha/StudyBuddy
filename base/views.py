@@ -77,7 +77,7 @@ def home(request):
     room_count = rooms.count()
 
     # Fetch recent room messages in descending order of creation time
-    room_messages = Message.objects.filter(room__in=rooms).order_by('-created')[:5]  # Limit to 5 most recent messages
+    room_messages = Message.objects.filter(Q(room__topic__name__icontains=q))  # Limit to 5 most recent messages
 
     context = {'rooms': rooms, 'topics': topics, 'room_count': room_count, 'room_messages': room_messages}
     return render(request, 'base/home.html', context)
@@ -98,6 +98,11 @@ def room(request, pk):
 
     context = {'room': room, 'room_messages': room_messages, 'participants':participants}
     return render(request, 'base/room.html', context)
+
+def userProfile(request, pk):
+    user = User.objects.get(id=pk)
+    context = {'user': user}
+    return render(request, 'base/profile.html', context)
 
 @login_required(login_url='login')
 def createRoom(request):
