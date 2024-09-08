@@ -101,8 +101,10 @@ def room(request, pk):
 
 def userProfile(request, pk):
     user = User.objects.get(id=pk)
-    context = {'user': user}
+    rooms = user.rooms.all()  # Using 'rooms' because of related_name
+    context = {'user': user, 'rooms': rooms}
     return render(request, 'base/profile.html', context)
+
 
 @login_required(login_url='login')
 def createRoom(request):
