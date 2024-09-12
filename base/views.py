@@ -101,8 +101,14 @@ def room(request, pk):
 
 def userProfile(request, pk):
     user = User.objects.get(id=pk)
-    rooms = user.rooms.all()  # Using 'rooms' because of related_name
-    context = {'user': user, 'rooms': rooms}
+    rooms = user.room_set.all()
+
+    room_message = user.message_set.all()
+    # rooms = user.rooms.all()  # Using 'rooms' because of related_name
+    topics = Topic.objects.all()
+    context = {'user': user, 'rooms': rooms, 'room_message': room_message, 'topics':topics}
+
+    
     return render(request, 'base/profile.html', context)
 
 
