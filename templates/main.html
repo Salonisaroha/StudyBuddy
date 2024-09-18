@@ -78,6 +78,21 @@
         </nav>
       </div>
     </header>
+    {% include 'navbar.html' %}
+    {% block content%}
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li>
+            {{ message }}
+        </li>
+    {% endfor %}
+</ul>
+    {% endif %}
+
+   
+    {% endblock %}
+
     <main class="layout layout--3">
       <div class="container">
         <!-- Topics Start -->
@@ -304,30 +319,3 @@
 </html>
 
 
-<html>
-    {%load static%}
-    <head>
-        <title>Study bud</title>
-        <link rel='stylesheet' type='text/css' media='screen' href="{% static 'styles/main.css' %}">
-        {% comment %} <script src='main.js'></script> {% endcomment %}
-    </head>
-    <body>
-        {% include 'navbar.html' %}
-
-        {% if messages %}
-        <ul class="messages">
-            {% for message in messages %}
-            <li>
-                {{ message }}
-            </li>
-        {% endfor %}
-    </ul>
-        {% endif %}
-
-        {% block content%}
-
-        {% endblock %}
-
-
-    </body>
-    </html>
