@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'base.apps.BaseConfig',
     'rest_framework',
     "corsheaders",
-    'base'
+    # 'base'
 ]
 
 AUTH_USER_MODEL = 'base.User'
